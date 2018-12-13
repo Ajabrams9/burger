@@ -1,12 +1,54 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+          <h1 class="display-4">Eat-Da-Buger!</h1>
+          <p class="lead">Request a Burger, Devour a Burger!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <ul>
+        {{#each burgers}}
+        {{#unless devoured}}
+        <li>
+          <p>Burger: {{this.burger_name}}</p>
+          {{!-- <p>Devoured: {{this.devoured}}</p> --}}
+          <form action="/burger/devour/{{id}}" method="POST">
+            <button type="submit" class="btn btn-primary">Devour</button>
+          </form>
 
-<h2>test header</h2>
+        </li>
+        {{/unless}}
+        {{/each}}
+      </ul>
+    </div>
+    <div class="col-6">
+      <ul>
+        {{#each burgers}}
+        {{#if this.devoured}}
+        <li>
+          <p>Burger: {{this.burger_name}}</p>
+          {{!-- <p>Devourec: {{this.devoured}}</p> --}}
+        </li>
+        {{/if}}
+        {{/each}}
+      </ul>
+    </div>
+  </div>
 
-<ul>
-  {{#each burgers}}
-  	<li>
-  	   <p>ID: {{this.burger_name}}</p>
-       <p>Task: {{this.devoured}}</p>
-  	</li>
-  {{/each}}
-</ul>
 
+  <div class="row">
+    <form action="/burger/create" method="POST">
+      <div class="form-group">
+        <div class="form-group">
+          <label for="create_new_burger">Request a New Burger!</label>
+          <textarea type="text" name="burger_name" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+</div>

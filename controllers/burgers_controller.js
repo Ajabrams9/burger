@@ -26,40 +26,18 @@ router.get("/", function (req, res) {
 });
 
 
-router.post("/api/burger", function (req, res) {
-    burger.insertOne(["burger_name"], [req.body.burger_name], function (result) {
-        // Send back the ID of the new quote
-        res.json({
-            id: result.insertId
-        });
-    });
-});
-
-
 router.post('/burger/create', function (req, res) {
     burger.insertOne(req.body.burger_name, function () {
-        res.redirect('/index');
+        res.redirect('/');
     });
 });
 
-router.put("/api/burger/:id", function (req, res) {
-    var condition = "id = " + req.params.id;
-
-    console.log("condition", condition);
-
-    burger.updateOne({
-            burger_name: req.body.burger_name
-        },
-        condition,
-        function (result) {
-            if (result.changedRows === 0) {
-                // If no rows were changed, then the ID must not exist, so 404
-                return res.status(404).end();
-            }
-            res.status(200).end();
-
-        }
-    );
+router.post('/burger/devour/:id', function (req, res) 
+{
+  burger.updateOne(req.params.id, function() 
+  {
+    res.redirect('/');
+  });
 });
 
 module.exports = router;
